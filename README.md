@@ -15,4 +15,9 @@ El propósito de este proyecto es mejorar las habilidades de maquetación web y 
 
 ## 📸 Vista previa
 
-![Vista previa de la Card](https: nngdsgn-cardairbnb//.netlify.app)
+![Vista previa de la Card](https://nngdsgn-mi-primera-card.netlify.app/)
+
+📜 Licencia
+Este proyecto está bajo la licencia MIT. Para más detalles, consulta el archivo LICENSE.
+
+Gracias por revisar este proyecto. ¡Espero que sea útil para tu aprendizaje y práctica en maquetación web!
