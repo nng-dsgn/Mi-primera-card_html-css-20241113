@@ -27,7 +27,7 @@ Este proyecto tiene como objetivo crear una card simple y funcional que incluya 
 
 Este es un ejemplo de cómo se ve la card:
 
-![Ejemplo de Card](https://nngdsgn-mi-primera-card.netlify.app/)
+![Ejemplo de Card]((https://nngdsgn-miprimeracard.netlify.app/))
 
 ## Contribuciones
 
