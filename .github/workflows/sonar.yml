@@ -18,7 +18,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '11'
-          distribution: 'adoptopenjdk'  # Agregado el parámetro de distribución
+          distribution: 'adoptium'  # Agregado el parámetro de distribución
 
       - name: Cache SonarCloud dependencies
         uses: actions/cache@v3
