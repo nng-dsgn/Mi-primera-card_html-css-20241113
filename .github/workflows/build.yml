@@ -1,25 +1,38 @@
-name: Build
+name: SonarQube Cloud
 
 on:
   push:
     branches:
-      - main  # También puedes agregar otras ramas aquí
+      - main
   pull_request:
     types: [opened, synchronize, reopened]
 
 jobs:
-  sonarcloud:
-    name: SonarQube Cloud
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # No hacer un "shallow clone" para una mejor relevancia en el análisis
+  build:
+    name: Build and analyze
+    runs-on: windows-latest
+    env:
+      BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directorio donde se guardará la salida del build-wrapper
 
-      - name: SonarQube Cloud Scan
-        uses: SonarSource/sonarcloud-github-action@v1
+    steps:
+      # Paso 1: Checkout del código
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Evitar clones superficiales para una mejor relevancia del análisis
+
+      # Paso 2: Instalar sonar-scanner y build-wrapper
+      - name: Install sonar-scanner and build-wrapper
+        uses: SonarSource/sonarcloud-github-c-cpp@v3
+
+      # Paso 3: Ejecutar el build-wrapper (debes reemplazar <insert_your_clean_build_command> con el comando de compilación de tu proyecto)
+      - name: Run build-wrapper
+        run: |
+          build-wrapper-win-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} <insert_your_clean_build_command>
+
+      # Paso 4: Ejecutar sonar-scanner para analizar el código
+      - name: Run sonar-scanner
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Necesario para obtener la información de PR si la hay
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          sonar-scanner --define sonar.cfamily.compile-commands="${{ env.BUILD_WRAPPER_OUT_DIR }}/compile_commands.json"
